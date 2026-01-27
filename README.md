@@ -61,7 +61,9 @@ Este projeto foi inspirado e desenvolvido com base no curso:
 4. Execute a aplicação:
     flask run
 
+---
 
-📌 Licença
+## 📌 Licença
+
 Este projeto é de caráter educacional e segue a licença MIT.
 Sinta-se livre para usar, modificar e compartilhar.
