@@ -13,6 +13,11 @@ def cadastro():
         return redirect(url_for(endpoint='login', proxima=url_for(endpoint='cadastro')))
     return render_template('cadastro.html',titulo='Cadastro de Jogo')
 
+@app.route('/login')
+def login():
+    proxima=request.args.get('proxima')
+    return render_template('login.html', proxima=proxima)
+
 @app.route('/criar-jogo',methods=['POST'])
 def criar_jogo():
     nome=request.form['nome']
@@ -50,10 +55,17 @@ def atualizar():
 
     return redirect(url_for('index'))
 
-@app.route('/login')
-def login():
-    proxima=request.args.get('proxima')
-    return render_template('login.html', proxima=proxima)
+@app.route('/deletar/<int:id>')
+def deletar(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        return redirect(url_for('login'))
+    
+    Jogos.query.filter_by(id=id).delete()
+
+    db.session.commit()
+
+    flash('Jogo deletado com sucesso!')
+    return redirect(url_for('index'))
 
 @app.route('/autenticar',methods=['POST'])
 def autenticar():
