@@ -1,4 +1,4 @@
-from flask import render_template,request,redirect,session,flash,url_for
+from flask import render_template,request,redirect,session,flash,url_for,send_from_directory
 from jogoteca import app,db
 from models import Jogos,Usuarios
 
@@ -15,7 +15,7 @@ def cadastro():
 
 @app.route('/login')
 def login():
-    proxima=request.args.get('proxima')
+    proxima=request.args.get('proxima',default='/',type=str)
     return render_template('login.html', proxima=proxima)
 
 @app.route('/criar-jogo',methods=['POST'])
@@ -91,3 +91,7 @@ def logout():
     flash(f'{session['usuario_logado']} Deslogado.')
     session['usuario_logado']=None
     return redirect(url_for(endpoint='login'))
+
+@app.route('/uploads/<nome_arquivo>')
+def capa_padrao(nome_arquivo):
+    return send_from_directory('uploads', nome_arquivo)
