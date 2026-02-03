@@ -1,6 +1,17 @@
 {% extends "template.html" %}
 {% block conteudo %}
       <form method="post" action="{{ url_for('atualizar') }}">
+
+        <figure class="img-tumbnail col-md-4">
+          <img class="img-fluid" src="{{ url_for('capa_padrao', nome_arquivo='capa_jogo') }}" alt="">
+          <figcaption>
+            <label class= "fileContainer">
+              Mudar Capa
+              <input type="file" name="arquivo" accept=".jpg">
+            </label>
+          </figcaption>
+        </figure>
+
         <fieldset>
           <input type="hidden" name="id_jogo" value="{{ jogo.id }}">
           <div class="form-group">
